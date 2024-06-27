@@ -1,0 +1,6 @@
+config/onedrive/.config.backup
+config/onedrive/.config.hash
+config/onedrive/items.sqlite3
+config/onedrive/items.sqlite3-shm
+config/onedrive/items.sqlite3-wal
+config/onedrive/refresh_token

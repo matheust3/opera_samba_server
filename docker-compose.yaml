@@ -1,0 +1,13 @@
+services:
+  onedrive:
+    build: .
+    network_mode: host
+    container_name: onedrive
+    restart: always
+    volumes:
+      - ./config/onedrive/:/home/opera/.config/onedrive
+      - ./smb.conf:/etc/samba/smb.conf
+    devices:
+      - /dev/sda:/dev/sda
+    privileged: true
+    command: bin/bash -c "mount /dev/sda /home/opera/hd && service smbd start && su -c 'onedrive --monitor --confdir /home/opera/.config/onedrive' -s /bin/bash opera"
