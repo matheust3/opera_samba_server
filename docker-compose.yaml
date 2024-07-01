@@ -10,4 +10,9 @@ services:
     devices:
       - /dev/sda:/dev/sda
     privileged: true
-    command: bin/bash -c "mount /dev/sda /home/opera/hd && service smbd start && su -c 'onedrive --monitor --confdir /home/opera/.config/onedrive' -s /bin/bash opera"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    command: bin/bash -c "mount /dev/sda /home/opera/hd && service smbd start && su -c 'onedrive --monitor --verbose --confdir /home/opera/.config/onedrive' -s /bin/bash opera"
