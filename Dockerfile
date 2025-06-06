@@ -18,7 +18,7 @@ RUN apt-get update && \
   curl
 
 #Para o OneDrive 
-RUN apt install ldc -y
+RUN apt install ldc libdbus-1-dev -y
 
 # Adicionar ldc2 ao PATH
 # ENV PATH="/dlang/ldc2/bin:${PATH}"
