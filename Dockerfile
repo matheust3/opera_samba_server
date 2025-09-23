@@ -24,7 +24,8 @@ RUN apt install ldc libdbus-1-dev -y
 # ENV PATH="/dlang/ldc2/bin:${PATH}"
 
 # Clone o repositório do OneDrive
-RUN git clone https://github.com/abraunegg/onedrive.git /onedrive
+
+RUN git clone --depth 1 --branch v2.5.6 https://github.com/abraunegg/onedrive.git
 
 # Adicionar ldc2 ao PATH
 
