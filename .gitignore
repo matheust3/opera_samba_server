@@ -5,3 +5,4 @@ config/onedrive/items.sqlite3-shm
 config/onedrive/items.sqlite3-wal
 config/onedrive/refresh_token
 .env
+logs/
