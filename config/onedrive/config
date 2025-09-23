@@ -7,7 +7,6 @@
 #
 sync_dir = "/home/opera/hd/OneDrive"
 skip_file = "~*|.~*|*.tmp|*.dwl|*.dwl2|*.swp|*.partial|*plot.log"
-monitor_interval = "60"
 # skip_dir = ""
 log_dir = "/var/log/onedrive/"
 # drive_id = ""

@@ -66,6 +66,13 @@ def tail(file_path):
         if os.path.exists(backup):
             os.remove(backup)
         os.rename(file_path, backup)
+        
+        # Crie arquivo vazio com permissões abertas
+        with open(file_path, "w") as f:
+            f.write("# Log file rotated by watcher.py\n")
+        # Aplica permissões 666 (escrita para todos)
+        os.chmod(file_path, 0o666)
+        print(f"Novo arquivo criado com permissões 666")
     
     print(f"Iniciando monitoramento de: {file_path}")
     
@@ -75,6 +82,9 @@ def tail(file_path):
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, "w") as f:
             f.write("# Log file initialized by watcher.py\n")
+        # Aplica permissões 666 (escrita para todos)
+        os.chmod(file_path, 0o666)
+        print(f"Arquivo inicializado com permissões 666")
     
     with open(file_path, "r", errors="ignore") as f:
         # Iniciar do final
@@ -93,7 +103,16 @@ def tail(file_path):
                     if os.path.exists(backup):
                         os.remove(backup)
                     os.rename(file_path, backup)
+                    
+                    # Crie arquivo vazio com permissões abertas
+                    with open(file_path, "w") as f:
+                        f.write("# Log file rotated by watcher.py\n")
+                    # Aplica permissões 666 (escrita para todos)
+                    os.chmod(file_path, 0o666)
+                    print(f"Novo arquivo criado com permissões 666")
+                    
                     return  # Força reinício do tail com novo arquivo
+                
                 check_count = 0
             
             line = f.readline()
