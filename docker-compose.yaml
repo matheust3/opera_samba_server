@@ -7,6 +7,7 @@ services:
     volumes:
       - ./config/onedrive/:/home/opera/.config/onedrive
       - ./smb.conf:/etc/samba/smb.conf
+      - ./logs:/var/log/onedrive
     devices:
       - /dev/sda:/dev/sda
     privileged: true
@@ -16,3 +17,23 @@ services:
         max-size: "10m"
         max-file: "3"
     command: bin/bash -c "mount /dev/sda1 /home/opera/hd && service smbd start && su -c 'onedrive --monitor --verbose --confdir /home/opera/.config/onedrive' -s /bin/bash opera"
+
+  logwatch:
+    image: python:3.12-alpine
+    container_name: onedrive-logwatch
+    restart: always
+    depends_on:
+      - onedrive
+    volumes:
+      - ./logs:/logs:ro
+      - ./watcher:/app
+    environment:
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      MAIL_FROM: ${MAIL_FROM}
+      MAIL_TO: ${MAIL_TO}
+      SUBJECT_PREFIX: "[OneDrive ERROR]"
+      COOLDOWN_SECONDS: "300"
+    command: sh -c "pip install --no-cache-dir watchfiles && python /app/watcher.py"
